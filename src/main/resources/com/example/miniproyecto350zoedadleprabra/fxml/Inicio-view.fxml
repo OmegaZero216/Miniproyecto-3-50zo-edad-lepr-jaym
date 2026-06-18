@@ -14,11 +14,11 @@
 <StackPane xmlns="http://javafx.com/javafx/17"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.miniproyecto350zoedadleprabra.controller.InicioController"
-           stylesheets="@/com/example/miniproyecto350zoedadleprabra/css/styles.css">
+           stylesheets="@../css/styles.css">
 
     <ImageView fitHeight="720" fitWidth="1280" pickOnBounds="true">
         <image>
-            <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/MenuBG.jpeg"/>
+            <Image url="@../images/ui/MenuBG.jpeg"/>
         </image>
     </ImageView>
 
@@ -27,7 +27,7 @@
     <VBox alignment="CENTER" maxWidth="600" spacing="30">
         <ImageView fitHeight="200" fitWidth="400" preserveRatio="true">
             <image>
-                <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/logo_50zo.png"/>
+                <Image url="@../images/ui/logo_50zo.png"/>
             </image>
         </ImageView>
 
@@ -53,7 +53,7 @@
 
             <ImageView fitHeight="80" fitWidth="200" preserveRatio="true">
                 <image>
-                    <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/cartas_decorativas.png"/>
+                    <Image url="@../images/ui/cartas_decorativas.png"/>
                 </image>
             </ImageView>
 
