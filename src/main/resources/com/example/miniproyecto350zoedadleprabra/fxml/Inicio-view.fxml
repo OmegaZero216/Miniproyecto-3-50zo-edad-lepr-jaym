@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.miniproyecto350zoedadleprabra.controller.InicioController"
+           stylesheets="@/com/example/miniproyecto350zoedadleprabra/css/styles.css">
+
+    <!-- Fondo principal -->
+    <ImageView fitHeight="720" fitWidth="1280" pickOnBounds="true">
+        <image>
+            <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/MenuBG.jpeg"/>
+        </image>
+    </ImageView>
+
+    <!-- Overlay oscuro para mejor legibilidad -->
+    <AnchorPane style="-fx-background-color: rgba(0, 0, 0, 0.6);"/>
+
+    <!-- Contenido centrado -->
+    <VBox alignment="CENTER" maxWidth="600" spacing="30">
+        <!-- Logo del juego -->
+        <ImageView fitHeight="200" fitWidth="400" preserveRatio="true">
+            <image>
+                <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/logo_50zo.png"/>
+            </image>
+        </ImageView>
+
+        <!-- Panel de configuración con estilo de madera/casino -->
+        <VBox alignment="CENTER" spacing="20"
+              style="-fx-background-color: rgba(139, 90, 43, 0.9);
+                     -fx-background-radius: 20;
+                     -fx-border-color: #DAA520;
+                     -fx-border-width: 3;
+                     -fx-border-radius: 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 15, 0, 0, 5);"
+              maxWidth="450" minWidth="400">
+
+            <padding>
+                <Insets bottom="40" left="40" right="40" top="40"/>
+            </padding>
+
+            <Label text="Selecciona cantidad de oponentes"
+                   textFill="#FFD700"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold;">
+                <font>
+                    <Font name="System Bold" size="18"/>
+                </font>
+            </Label>
+
+            <!-- Imagen decorativa de cartas -->
+            <ImageView fitHeight="80" fitWidth="200" preserveRatio="true">
+                <image>
+                    <Image url="@/com/example/miniproyecto350zoedadleprabra/images/ui/cartas_decorativas.png"/>
+                </image>
+            </ImageView>
+
+            <!-- Selector de oponentes -->
+            <ComboBox fx:id="cbMaquinas"
+                      style="-fx-font-size: 16px;
+                             -fx-background-color: #2C1810;
+                             -fx-text-fill: #FFD700;
+                             -fx-border-color: #DAA520;
+                             -fx-border-width: 2;"
+                      prefWidth="250"
+                      promptText="Número de oponentes CPU"/>
+
+            <!-- Botón iniciar con efecto hover -->
+            <Button fx:id="btnIniciar"
+                    text="INICIAR PARTIDA"
+                    onAction="#iniciarJuego"
+                    style="-fx-background-color: linear-gradient(#8B0000, #4B0000);
+                           -fx-text-fill: #FFD700;
+                           -fx-font-size: 20px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 15;
+                           -fx-border-color: #DAA520;
+                           -fx-border-width: 2;
+                           -fx-border-radius: 15;
+                           -fx-padding: 15 40;
+                           -fx-cursor: hand;
+                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 3);"
+                    prefWidth="300">
+                <font>
+                    <Font name="System Bold" size="20"/>
+                </font>
+            </Button>
+
+            <!-- Versión del juego -->
+            <Label text="v1.0 - 50zo Card Game"
+                   textFill="#8B7355"
+                   style="-fx-font-size: 12px;"/>
+        </VBox>
+    </VBox>
+</StackPane>

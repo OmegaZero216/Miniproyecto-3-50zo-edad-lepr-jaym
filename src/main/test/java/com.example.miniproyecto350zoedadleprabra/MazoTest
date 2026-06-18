@@ -1,0 +1,51 @@
+package com.example.miniproyecto350zoedadleprabra.controller;
+
+class MazoTest {
+
+    @Test
+    void mazoInicialTiene52Cartas() {
+        Mazo mazo = new Mazo();
+        assertEquals(52, mazo.cartasRestantes());
+    }
+
+    @Test
+    void tomarCartaReduceElMazo() {
+        Mazo mazo = new Mazo();
+        mazo.tomarCarta();
+        assertEquals(51, mazo.cartasRestantes());
+    }
+
+    @Test
+    void repartirManosIniciales() {
+        Mazo mazo = new Mazo();
+        Map<Integer, List<Carta>> manos = mazo.repartirManosIniciales(4);
+
+        assertEquals(4, manos.size());
+        manos.values().forEach(mano -> assertEquals(4, mano.size()));
+        assertEquals(52 - 16, mazo.cartasRestantes());
+    }
+
+    @Test
+    void mazoVacioLanzaExcepcion() {
+        Mazo mazo = new Mazo();
+        // Vaciar el mazo
+        for (int i = 0; i < 52; i++) {
+            mazo.tomarCarta();
+        }
+
+        assertThrows(MazoVacioException.class, mazo::tomarCarta);
+    }
+
+    @Test
+    void agregarCartasBarajaDeNuevo() {
+        Mazo mazo = new Mazo();
+        List<Carta> cartas = new ArrayList<>();
+        cartas.add(new Carta(Carta.ValorCarta.AS, Carta.Palo.CORAZONES));
+        cartas.add(new Carta(Carta.ValorCarta.K, Carta.Palo.PICAS));
+
+        mazo.agregarCartas(cartas);
+
+        // El mazo debe tener más cartas ahora
+        assertFalse(mazo.estaVacio());
+    }
+}
