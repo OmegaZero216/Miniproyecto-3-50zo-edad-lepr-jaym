@@ -1,51 +1,42 @@
 package com.example.miniproyecto350zoedadleprabra.util;
 
+import com.example.miniproyecto350zoedadleprabra.model.Carta;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class VerificadorRecursos {
+    private static final String RUTA_REVERSO =
+            "/com/example/miniproyecto350zoedadleprabra/images/cartas/reverse.png";
 
-    /**
-     * Verifica que todas las imágenes necesarias existan
-     * @return Lista de recursos faltantes
-     */
     public static List<String> verificarRecursosCartas() {
         List<String> faltantes = new ArrayList<>();
 
-        String[] simbolos = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        String[] palos = {"corazones", "diamantes", "treboles", "picas"};
-
-        for (String simbolo : simbolos) {
-            for (String palo : palos) {
-                if (!RecursosImagen.existeImagen(simbolo, palo)) {
-                    faltantes.add(simbolo + "_" + palo + ".png");
+        for (Carta.ValorCarta valor : Carta.ValorCarta.values()) {
+            for (Carta.Palo palo : Carta.Palo.values()) {
+                if (!RecursosImagen.existeImagen(valor.getSimbolo(), palo.name())) {
+                    faltantes.add(valor.getSimbolo() + "_" + palo.name() + ".png");
                 }
             }
         }
 
-        // Verificar reverso
-        if (RecursosImagen.class.getResource("/imagenes/cartas/reverso.png") == null) {
-            faltantes.add("reverso.png");
+        if (RecursosImagen.class.getResource(RUTA_REVERSO) == null) {
+            faltantes.add("reverse.png");
         }
 
         return faltantes;
     }
 
-    /**
-     * Imprime el reporte de verificación
-     */
     public static void imprimirReporte() {
-        System.out.println("=== VERIFICACIÓN DE RECURSOS DE CARTAS ===");
-
         List<String> faltantes = verificarRecursosCartas();
 
+        System.out.println("=== VERIFICACION DE RECURSOS DE CARTAS ===");
         if (faltantes.isEmpty()) {
-            System.out.println("✓ Todas las imágenes de cartas están presentes (52 cartas + reverso)");
+            System.out.println("Todas las imagenes de cartas estan presentes");
         } else {
-            System.out.println("✗ Faltan " + faltantes.size() + " imágenes:");
+            System.out.println("Faltan " + faltantes.size() + " imagenes:");
             faltantes.forEach(f -> System.out.println("  - " + f));
         }
-
         System.out.println("==========================================");
     }
 }

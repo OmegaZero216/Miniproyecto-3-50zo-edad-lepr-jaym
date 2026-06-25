@@ -1,7 +1,16 @@
-package com.example.miniproyecto350zoedadleprabra.controller;
+package com.example.miniproyecto350zoedadleprabra.model;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MazoTest {
-
     @Test
     void mazoInicialTiene52Cartas() {
         Mazo mazo = new Mazo();
@@ -16,7 +25,7 @@ class MazoTest {
     }
 
     @Test
-    void repartirManosIniciales() {
+    void repartirManosInicialesEntregaCuatroCartasPorJugador() {
         Mazo mazo = new Mazo();
         Map<Integer, List<Carta>> manos = mazo.repartirManosIniciales(4);
 
@@ -28,7 +37,6 @@ class MazoTest {
     @Test
     void mazoVacioLanzaExcepcion() {
         Mazo mazo = new Mazo();
-        // Vaciar el mazo
         for (int i = 0; i < 52; i++) {
             mazo.tomarCarta();
         }
@@ -37,15 +45,15 @@ class MazoTest {
     }
 
     @Test
-    void agregarCartasBarajaDeNuevo() {
+    void agregarCartasDevuelveCartasAlMazo() {
         Mazo mazo = new Mazo();
         List<Carta> cartas = new ArrayList<>();
-        cartas.add(new Carta(Carta.ValorCarta.AS, Carta.Palo.CORAZONES));
+        cartas.add(new Carta(Carta.ValorCarta.A, Carta.Palo.CORAZONES));
         cartas.add(new Carta(Carta.ValorCarta.K, Carta.Palo.PICAS));
 
         mazo.agregarCartas(cartas);
 
-        // El mazo debe tener más cartas ahora
         assertFalse(mazo.estaVacio());
+        assertEquals(54, mazo.cartasRestantes());
     }
 }

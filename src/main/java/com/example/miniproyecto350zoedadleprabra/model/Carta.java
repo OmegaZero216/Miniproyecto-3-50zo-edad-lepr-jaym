@@ -145,8 +145,12 @@ public class Carta {
      * Obtiene el nombre del archivo de imagen para esta carta
      */
     public String getNombreImagen() {
-        return valorCarta.getSimbolo().toLowerCase() + "_" +
-                palo.name().toLowerCase();
+        return switch (palo) {
+            case CORAZONES -> "C";
+            case DIAMANTES -> "D";
+            case PICAS -> "P";
+            case TREBOLES -> "T";
+        } + valorCarta.getSimbolo() + ".png";
     }
 
     @Override

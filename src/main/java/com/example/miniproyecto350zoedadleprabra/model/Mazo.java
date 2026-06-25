@@ -1,24 +1,25 @@
 package com.example.miniproyecto350zoedadleprabra.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 import java.util.Stack;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class Mazo {
-    private final Stack<Carta> cartas;
     private static final int CARTAS_INICIALES_POR_JUGADOR = 4;
+
+    private final Stack<Carta> cartas;
 
     public Mazo() {
         this.cartas = new Stack<>();
         inicializarBarajaCompleta();
     }
 
-    /**
-     * Crea una baraja francesa completa de 52 cartas:
-     * 4 palos × 13 valores (A, 2-10, J, Q, K)
-     */
     private void inicializarBarajaCompleta() {
         List<Carta> baraja = new ArrayList<>();
 
@@ -28,15 +29,10 @@ public class Mazo {
             }
         }
 
-        // Barajar
         Collections.shuffle(baraja, new Random());
         cartas.addAll(baraja);
     }
 
-    /**
-     * Toma una carta del tope del mazo
-     * @throws MazoVacioException si el mazo está vacío
-     */
     public Carta tomarCarta() {
         if (cartas.isEmpty()) {
             throw new MazoVacioException("El mazo se ha quedado sin cartas");
@@ -44,10 +40,10 @@ public class Mazo {
         return cartas.pop();
     }
 
-    /**
-     * Toma múltiples cartas del mazo
-     */
     public List<Carta> tomarCartas(int cantidad) {
+        if (cantidad < 0) {
+            throw new IllegalArgumentException("La cantidad de cartas no puede ser negativa");
+        }
         if (cantidad > cartas.size()) {
             throw new MazoVacioException(
                     String.format("No hay suficientes cartas. Solicitadas: %d, Disponibles: %d",
@@ -61,53 +57,38 @@ public class Mazo {
         return cartasTomadas;
     }
 
-    /**
-     * Agrega cartas al mazo y lo vuelve a barajar
-     */
-    public void agregarCartas(Collection<Carta> cartasAEgregar) {
-        cartas.addAll(cartasAEgregar);
+    public void agregarCartas(Collection<Carta> cartasAgregar) {
+        Objects.requireNonNull(cartasAgregar, "cartasAgregar");
+        cartas.addAll(cartasAgregar);
         Collections.shuffle(cartas, new Random());
     }
 
-    /**
-     * Agrega una sola carta al mazo
-     */
     public void agregarCarta(Carta carta) {
-        cartas.push(carta);
+        cartas.push(Objects.requireNonNull(carta, "carta"));
     }
 
-    /**
-     * Verifica si el mazo está vacío
-     */
     public boolean estaVacio() {
         return cartas.isEmpty();
     }
 
-    /**
-     * Obtiene la cantidad de cartas restantes
-     */
     public int cartasRestantes() {
         return cartas.size();
     }
 
-    /**
-     * Reinicia el mazo con una baraja nueva
-     */
     public void reiniciar() {
         cartas.clear();
         inicializarBarajaCompleta();
     }
 
-    /**
-     * Prepara las manos iniciales para todos los jugadores
-     */
     public Map<Integer, List<Carta>> repartirManosIniciales(int cantidadJugadores) {
-        Map<Integer, List<Carta>> manos = new HashMap<>();
+        if (cantidadJugadores < 0) {
+            throw new IllegalArgumentException("La cantidad de jugadores no puede ser negativa");
+        }
 
+        Map<Integer, List<Carta>> manos = new HashMap<>();
         for (int i = 0; i < cantidadJugadores; i++) {
             manos.put(i, tomarCartas(CARTAS_INICIALES_POR_JUGADOR));
         }
-
         return manos;
     }
 
